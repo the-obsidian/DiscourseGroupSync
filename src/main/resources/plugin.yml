@@ -1,0 +1,9 @@
+name: DiscourseGroupSync
+version: ${project.version}
+description: ${project.description}
+
+author: Jacob Gillespie
+website: ${project.url}
+
+main: gg.obsidian.discoursegroupsync.DiscourseGroupSync
+

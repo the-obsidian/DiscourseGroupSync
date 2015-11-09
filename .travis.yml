@@ -9,5 +9,5 @@ deploy:
   file: target/DiscordBridge-*.jar
   file_glob: true
   on:
-    repo: the-obsidian/DiscordBridge
+    repo: the-obsidian/DiscourseGroupSync
     tags: true

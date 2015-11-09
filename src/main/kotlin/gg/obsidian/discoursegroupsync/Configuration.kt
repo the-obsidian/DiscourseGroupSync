@@ -5,7 +5,7 @@ import java.util.*
 class Configuration(val plugin: DiscourseGroupSync) {
 
     var DISCOURSE_URL = ""
-    var GROUPS: HashSet<Group> = HashSet<Group>()
+    var GROUPS: MutableMap<Int, Group> = HashMap<Int, Group>()
 
     fun load() {
         plugin.reloadConfig()
@@ -29,7 +29,7 @@ class Configuration(val plugin: DiscourseGroupSync) {
                 if (discourseGroup == null || minecraftGroup == null) return
 
                 val group = Group(discourseGroup, minecraftGroup)
-                GROUPS.add(group)
+                GROUPS.put(discourseGroup, group)
             }
         }
     }

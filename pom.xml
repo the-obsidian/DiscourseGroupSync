@@ -54,6 +54,11 @@
             <artifactId>google-http-client-gson</artifactId>
             <version>1.20.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.7</version>
+        </dependency>
     </dependencies>
 
     <build>

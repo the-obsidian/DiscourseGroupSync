@@ -1,41 +1,49 @@
-# DiscordBridge [![Build Status](https://travis-ci.org/the-obsidian/DiscordBridge.svg?branch=master)](https://travis-ci.org/the-obsidian/DiscordBridge)
+# DiscourseGroupSync [![Build Status](https://travis-ci.org/the-obsidian/DiscourseGroupSync.svg?branch=master)](https://travis-ci.org/the-obsidian/DiscourseGroupSync)
 
-Bridges chat between Discord and Minecraft (Bukkit/Spigot).
+Synchronizes Minecraft groups with Discourse groups
+
+## Dependencies
+
+* Vault
 
 ## Installation
 
-1. Download the [latest release](https://github.com/the-obsidian/DiscordBridge/releases) from GitHub
+1. Download the [latest release](https://github.com/the-obsidian/DiscourseGroupSync/releases) from GitHub
 1. Add it to your `plugins` folder
-1. Either run Bukkit/Spigot once to generate `DiscordBridge/config.yml` or create it using the guide below.
+1. Either run Bukkit/Spigot once to generate `DiscourseGroupSync/config.yml` or create it using the guide below.
 1. All done!
 
 ## Configuration
 
-DiscordBridge has several options that can be configured in the `config.yml` file:
+DiscourseGroupSync has several options that can be configured in the `config.yml` file:
 
 ```yaml
-settings:
-  server-id: '00000000'
-  channel: 'test'
-  username: 'username'
-  email: 'email@example.com'
-  password: 'password'
+# The URL of your Discourse installation (without the trailing slash)
+discourse-url: http://forum.example.com
+
+# A mapping between Discourse groups (by integer ID) and Minecraft groups (by name)
+groups:
+
+  # Add user to groupname when they are in Discourse group 4
+  - discourse: 4
+    minecraft: groupname
+
+  # Remove user from groupname when they are not in Discourse group 4
+  - discourse: 4
+    minecraft: groupname
+    remove: true
+
+  # Add user to guestgroup if they do not have any Discourse groups
+  - discourse: 0
+    minecraft: guestgroup
 ```
 
-* `server-id` is the ID if your Discord server.  This can be found under *Server Settings > Widget > Server ID*
-* `channel` is the Discord channel name you would like to bridge with your Minecraft server
-* `username` is the Discord username of your bot user
-* `email` is the Discord email address of your bot user
-* `password` is the Discord password of your bot user
+`discourse` keys are the IDs of your chosen Discourse groups.  A negative number means the absence of the group, so `discourse: -20` would target users who were not a member of group `20`.  `0` is a special group meaning users who are not a member of any Discourse groups.
 
 ## Features
 
-* Anything said in Minecraft chat will be sent to your chosen Discord channel
-* Anything said in your chosen Discord channel will be sent to your Minecraft chat (with a `(discord)` suffix added to usernames)
+* Synchronizes Minecraft groups with Discourse groups on player join
 
 ## Upcoming Features
 
-* Ability to customize the display format
-* Deeper integration into Minecraft chat (like supporting chat channels inside Minecraft)
-* A "merge accounts" function to allow Minecraft players to associate their Discord accounts with their Minecraft accounts so that usernames are properly translated
-* Ability to post messages to Discord on behalf of Discord users, rather than using a bot user (hopefully after the official API is released)
+* Add more hooks for synchronization, including recurring tasks and possibly webhooks

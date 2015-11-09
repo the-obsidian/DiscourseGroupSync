@@ -1,3 +1,3 @@
 package gg.obsidian.discoursegroupsync
 
-data class Group(var discourseGroup: Int, var minecraftGroup: String)
+data class Group(val discourseGroup: Int, val minecraftGroup: String, val remove: Boolean = false)

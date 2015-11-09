@@ -2,4 +2,4 @@ package gg.obsidian.discoursegroupsync
 
 import java.util.*
 
-data class User(val username: String = "", val minecraftGroups: Set<String> = HashSet(), val exists: Boolean = true)
+data class User(val username: String = "", val discourseGroups: Set<Int> = HashSet(), val exists: Boolean = true)

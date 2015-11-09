@@ -1,0 +1,13 @@
+language: java
+jdk:
+- oraclejdk8
+
+deploy:
+  provider: releases
+  api_key:
+    secure: fUPNY9FkaCCpKytHSCCaOibPAxdJtEOsxtRXXlNgTPQ0dCXbuwJlLUwuy9bqR0ZO4t2L3UritbZ8yNrZnFiaBAxJQzLtpFOGgQdOaQUgukL4KW33oIy2+TUnV/JN/xGhXCsb6Ija9wqEVeWVTTCqDjPZYeECe46Z5NhdZsiA8RUB5IIouisnJFhM4rdY8vyLI3Xvp3WGBPxVOD+uZlALWZrUiqPhe9CJpgoOkuwijQHNb39CYtknW6Q1Z+Pg1HcukUDDpZZnHhp1lXDJOQAjdg5MAMhcpS6rk6HINPmtnmE6gCD74Iofr9NAGbLefD95UkSJUhyUOQI9mGY5nv3aCgBHIXa+9NuXsqAzkF3tXAbYAtkKf42QJzWFSRMfaBA96oADR/oCUTwVE1O+SnfGBLy2XgBWEVDZ76zaUiad7ttx+TtAhNm80ab67zBkBoMZLTKrQzy9BN5uY9B/Gc42hfiPhNwBRTlWJN8FIL8tdh3wt+nGQc5wMBKpZFm+BHPUP/GnrspbrvVka6Tfc/yavFrqOzgkbvWal54V+YHbwTozEwjTa6anIsI2bKlJwU0tlOAyHUKydiOjMDO9iV/r3y4er8nHLnbqfjEYRtFuIv5n6d9MzK0wa8eJUUlAvTMnuE82Onw2Sz9wAsFszaPSYRVkalRyV9S+HO/HMvftVU0=
+  file: target/DiscordBridge-*.jar
+  file_glob: true
+  on:
+    repo: the-obsidian/DiscordBridge
+    tags: true

@@ -1,3 +1,18 @@
+# The URL of your Discourse installation (without the trailing slash)
+discourse-url: http://forum.example.com
+
+# A mapping between Discourse groups (by integer ID) and Minecraft groups (by name)
 groups:
-  # - discourse: 4
-  #   minecraft: groupname
+
+  # Add user to groupname when they are in Discourse group 4
+  - discourse: 4
+    minecraft: groupname
+
+  # Remove user from groupname when they are not in Discourse group 4
+  - discourse: 4
+    minecraft: groupname
+    remove: true
+
+  # Add user to guestgroup if they do not have any Discourse groups
+  - discourse: 0
+    minecraft: guestgroup

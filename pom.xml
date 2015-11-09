@@ -28,6 +28,10 @@
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
@@ -44,20 +48,18 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
         <dependency>
-            <groupId>com.github.wareninja</groupId>
-            <artifactId>discourse-api-client</artifactId>
-            <version>0.0.3</version>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.5.0</version>
         </dependency>
+
         <dependency>
-            <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client-gson</artifactId>
-            <version>1.20.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.7</version>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.5</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -113,10 +115,9 @@
                             <minimizeJar>true</minimizeJar>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <artifactSet>
-                                <includes>
-                                    <include>org.jetbrains.kotlin:*</include>
-                                    <include>com.github.wareninja:discourse-api-client:*</include>
-                                </includes>
+                                <excludes>
+                                    <exclude>org.spigotmc:*</exclude>
+                                </excludes>
                             </artifactSet>
                         </configuration>
                     </execution>

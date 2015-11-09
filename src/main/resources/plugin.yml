@@ -7,3 +7,5 @@ website: ${project.url}
 
 main: gg.obsidian.discoursegroupsync.DiscourseGroupSync
 
+depend: [Vault]
+

@@ -38,7 +38,7 @@ class DiscourseGroupSync : JavaPlugin(), Listener {
     }
 
     fun setupPermissions(): Boolean {
-        val rsp: RegisteredServiceProvider<Permission> = getServer().getServicesManager().getRegistration(Permission::class.java)
+        val rsp: RegisteredServiceProvider<Permission> = server.servicesManager.getRegistration(Permission::class.java)
         permissions = rsp.provider
         return permissions != null
     }

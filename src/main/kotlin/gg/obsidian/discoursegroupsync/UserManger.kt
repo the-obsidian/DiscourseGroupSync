@@ -23,14 +23,14 @@ class UserManager(val plugin: DiscourseGroupSync) {
 
         val bodyString = response.body().string()
         val body = JSONValue.parse(bodyString) as JSONObject
-        val user = body["user"] as JSONObject
-        val customGroups = user["custom_groups"] as JSONArray
+        val user = body.getRaw("user") as JSONObject
+        val customGroups = user.getRaw("custom_groups") as JSONArray
 
         val discourseGroups = HashSet<Int>()
 
         for (g in customGroups) {
             val group = g as JSONObject
-            val id = group.get("id") as Long
+            val id = group.getRaw("id") as Long
             discourseGroups.add(id.toInt())
         }
 
@@ -82,12 +82,12 @@ class UserManager(val plugin: DiscourseGroupSync) {
         }
 
         for (group in groupsToAdd) {
-            plugin.logger.info("Adding " + username + " to group " + group)
+            plugin.logger.info("Adding $username to group $group")
             plugin.permissions?.playerAddGroup(player, group)
         }
 
         for (group in groupsToRemove) {
-            plugin.logger.info("Removing " + username + " from group " + group)
+            plugin.logger.info("Removing $username from group $group")
             plugin.permissions?.playerRemoveGroup(player, group)
         }
     }

@@ -1,6 +1,9 @@
 # The URL of your Discourse installation (without the trailing slash)
 discourse-url: http://forum.example.com
 
+# Message to display if kicking due to whitelist
+kick-message: You are not on the whitelist
+
 # A mapping between Discourse groups (by integer ID) and Minecraft groups (by name)
 groups:
 

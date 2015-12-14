@@ -34,7 +34,10 @@ class DiscourseGroupSync : JavaPlugin(), Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
-        userManager.syncGroups(e.player)
+        val canJoin = userManager.onJoin(e.player)
+        if (!canJoin) {
+            e.player.kickPlayer(config.KICK_MESSAGE)
+        }
     }
 
     fun setupPermissions(): Boolean {

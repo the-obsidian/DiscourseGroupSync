@@ -12,7 +12,17 @@ class UserManager(val plugin: DiscourseGroupSync) {
 
     val httpClient = OkHttpClient()
 
-    fun getDiscourseUser(username: String): User {
+    fun onJoin(player: Player): Boolean {
+        val user = getDiscourseUser(player)
+
+        syncGroups(player, user)
+        return checkWhitelist(user)
+    }
+
+    fun getDiscourseUser(player: Player): User? {
+        val username = UUIDHelper.uuidToUsername(player.uniqueId)
+        if (username == "") return null
+
         val url = plugin.config.DISCOURSE_URL + "/users/" + username + ".json"
         val request = Request.Builder().url(url).get().build();
         val response = httpClient.newCall(request).execute()
@@ -41,12 +51,32 @@ class UserManager(val plugin: DiscourseGroupSync) {
         return User(username = username, discourseGroups = discourseGroups)
     }
 
-    fun syncGroups(player: Player) {
-        val username = UUIDHelper.uuidToUsername(player.uniqueId)
-        if (username == "") return
+    fun checkWhitelist(user: User?): Boolean {
+        if (user == null) {
+            for (group in plugin.config.GROUPS) {
+                if (group.whitelist == true)
+                    return false
+            }
+            return true
+        }
 
-        val user = getDiscourseUser(username)
+        var canJoin = true
 
+        for (group in plugin.config.GROUPS) {
+            if (group.whitelist != true) continue
+
+            if (user.discourseGroups.contains(group.discourseGroup)) {
+                return true
+            } else {
+                canJoin = false
+            }
+        }
+
+        return canJoin
+    }
+
+    fun syncGroups(player: Player, user: User?) {
+        if (user == null) return
         val groupsToAdd = HashSet<String>()
         val groupsToRemove = HashSet<String>()
 
@@ -82,12 +112,12 @@ class UserManager(val plugin: DiscourseGroupSync) {
         }
 
         for (group in groupsToAdd) {
-            plugin.logger.info("Adding $username to group $group")
+            plugin.logger.info("Adding ${user.username} to group $group")
             plugin.permissions?.playerAddGroup(player, group)
         }
 
         for (group in groupsToRemove) {
-            plugin.logger.info("Removing $username from group $group")
+            plugin.logger.info("Removing ${user.username} from group $group")
             plugin.permissions?.playerRemoveGroup(player, group)
         }
     }

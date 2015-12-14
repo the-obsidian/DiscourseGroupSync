@@ -18,7 +18,7 @@ class UserManager(val plugin: DiscourseGroupSync) {
     }
 
     fun getDiscourseUser(player: Player): User? {
-        val username = UUIDHelper.uuidToUsername(player.uniqueId)
+        val username = player.name // UUIDHelper.uuidToUsername(player.uniqueId)
         if (username == "") return null
 
         val url = plugin.config.DISCOURSE_URL + "/users/" + username + ".json"

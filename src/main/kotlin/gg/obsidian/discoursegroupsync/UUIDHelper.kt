@@ -17,7 +17,7 @@ object UUIDHelper {
         val response = httpClient.newCall(request).execute()
         val body = JSONValue.parse(response.body().string()) as JSONObject
 
-        if (body.containsKey("error")) {
+        if (body.containsKeyRaw("error")) {
             return ""
         }
 

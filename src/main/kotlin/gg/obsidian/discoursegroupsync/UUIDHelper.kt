@@ -2,8 +2,7 @@ package gg.obsidian.discoursegroupsync
 
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
-import org.json.simple.JSONObject
-import org.json.simple.JSONValue
+import org.json.JSONObject
 import java.util.*
 
 object UUIDHelper {
@@ -15,12 +14,12 @@ object UUIDHelper {
         val url = PROFILE_URL + uuid.toString().replace("-", "")
         val request = Request.Builder().url(url).get().build();
         val response = httpClient.newCall(request).execute()
-        val body = JSONValue.parse(response.body().string()) as JSONObject
+        val body = JSONObject(response.body().string())
 
-        if (body.containsKeyRaw("error")) {
+        if (body.has("error")) {
             return ""
         }
 
-        return body.get("name") as String
+        return body.getString("name")
     }
 }

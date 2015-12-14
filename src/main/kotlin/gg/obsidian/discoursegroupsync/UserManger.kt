@@ -3,9 +3,7 @@ package gg.obsidian.discoursegroupsync
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
 import org.bukkit.entity.Player
-import org.json.simple.JSONArray
-import org.json.simple.JSONObject
-import org.json.simple.JSONValue
+import org.json.JSONObject
 import java.util.*
 
 class UserManager(val plugin: DiscourseGroupSync) {
@@ -32,19 +30,19 @@ class UserManager(val plugin: DiscourseGroupSync) {
         }
 
         val bodyString = response.body().string()
-        val body = JSONValue.parse(bodyString) as JSONObject
-        val user = body.getRaw("user") as JSONObject
-        val customGroups = user.getRaw("custom_groups") as JSONArray
+        val body = JSONObject(bodyString)
+        val user = body.getJSONObject("user")
+        val customGroups = user.getJSONArray("custom_groups")
 
         val discourseGroups = HashSet<Int>()
 
         for (g in customGroups) {
             val group = g as JSONObject
-            val id = group.getRaw("id") as Long
+            val id = group.getLong("id")
             discourseGroups.add(id.toInt())
         }
 
-        if (customGroups.size == 0) {
+        if (customGroups.length() == 0) {
             discourseGroups.add(0)
         }
 

@@ -2,6 +2,7 @@ package gg.obsidian.discoursegroupsync
 
 import net.milkbowl.vault.permission.Permission
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.RegisteredServiceProvider
@@ -32,7 +33,7 @@ class DiscourseGroupSync : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(this, this)
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     fun onJoin(e: PlayerJoinEvent) {
         val canJoin = userManager.onJoin(e.player)
         if (!canJoin) {
